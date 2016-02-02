@@ -4,6 +4,8 @@ module FullcalendarEngine
     attr_accessor :period, :frequency, :commit_button
 
     validates :title, :description, :presence => true
+    validates :starttime, :presence => true
+    validates :endtime, :presence => true
     validate :validate_timings
 
     belongs_to :event_series
@@ -17,8 +19,10 @@ module FullcalendarEngine
     }
     
     def validate_timings
-      if (starttime >= endtime) and !all_day
-        errors[:base] << "Start Time must be less than End Time"
+      unless starttime.nil? && endtime.nil?
+        if (starttime >= endtime) and !all_day
+          errors[:base] << "Start Time must be less than End Time"
+        end
       end
     end
 
