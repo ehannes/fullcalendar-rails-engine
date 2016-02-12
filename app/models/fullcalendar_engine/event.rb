@@ -17,7 +17,7 @@ module FullcalendarEngine
     }
     
     def validate_timings
-      unless starttime.nil? && endtime.nil?
+      if !starttime.nil? and !endtime.nil?
         if (starttime >= endtime) and !all_day
           errors[:base] << "Start Time must be less than End Time"
         end
